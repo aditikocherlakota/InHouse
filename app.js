@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var Textbook = require("./models/textbook");
+var Comment = require("./models/comment");
 var seedDB = require("./seeds")
 
 seedDB();
@@ -15,7 +16,7 @@ app.get("/", function(req, res){
 });
 
 app.get("/textbooks/new", function(req, res){
-    res.render("new.ejs");
+    res.render("textbooks/new");
 });
 
 app.get("/textbooks", function(req, res){
@@ -23,7 +24,7 @@ app.get("/textbooks", function(req, res){
         if(err){
             console.log(err);}
         else {
-    res.render("index", {textbooks: textbooks});}
+    res.render("textbooks/index", {textbooks: textbooks});}
     })
 });
 
@@ -35,7 +36,7 @@ app.get("/textbooks/:id", function(req, res){
             console.log(err);
         }
         else {
-            res.render("show", {textbook: foundTextbook});
+            res.render("textbooks/show", {textbook: foundTextbook});
         }
     });
 })
@@ -56,6 +57,36 @@ app.post("/textbooks", function(req, res){
    //redirect back to textbooks page
    res.redirect("textbooks");
 });
+
+//==============================================================================
+//COMMENTS ROUTES
+//==============================================================================
+
+app.get("/textbooks/:id/comments/new", function(req, res){
+    Textbook.findById(req.params.id, function(err, textbook){
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.render("comments/new", {textbook: textbook})
+        }
+    }) 
+});
+
+app.post("/textbooks/:id/comments", function(req, res){
+    Textbook.findById(req.params.id, function(err, textbook){
+        Comment.create(req.body.comment, function(err, comment){
+            if(err){
+                console.log(err);
+                res.redirect("/textbooks");
+            }
+            else{
+                textbook.comments.push(comment);
+                textbook.save();
+                res.redirect("/textbooks/" + textbook._id);
+
+            }
+        });});});
 
 app.listen(3000, function(){
     console.log("The InHouse server has started!");

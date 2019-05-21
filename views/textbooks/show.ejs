@@ -1,4 +1,4 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
 <p><%= textbook.title %> </p>
 
@@ -13,4 +13,7 @@
 
 <% }) %>
 
-<% include partials/footer %>
+<a class ="btn btn-success" href="/textbooks/<%=textbook._id%>/comments/new">New Comment
+</a>
+
+<% include ../partials/footer %>
