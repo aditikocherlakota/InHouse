@@ -1,0 +1,16 @@
+<% include partials/header %>
+
+<p><%= textbook.title %> </p>
+
+<img src = "<%= textbook.image %>">
+<p><%= textbook.description %> </p>
+
+<% textbook.comments.forEach(function(comment){ %>
+    <p>
+    <strong><%= comment.author %>-</strong>
+    <%= comment.text %>
+    </p>
+
+<% }) %>
+
+<% include partials/footer %>

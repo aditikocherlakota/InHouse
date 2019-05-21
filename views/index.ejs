@@ -1,0 +1,40 @@
+<% include partials/header %>
+
+<style>
+    .row{
+        display: flex;
+        flex-wrap: wrap;
+    }
+</style>
+
+<div class = "container">
+    <header class = "jumbotron">
+        <div class = "container">
+        <h1>Textbooks Page</h1>
+        <p>Browse Textbooks</p>
+        <p>
+            <a class="btn btn-lg" href = "textbooks/new">Add New Textbook</a>
+        </p>
+        </div>
+    </header>
+
+<div class = "row text-center" style="display:flex; flex-wrap: wrap;">
+<% textbooks.forEach(function(t){ %> 
+    <div class="col-md-3 col-sm-6"> 
+        <div class = "thumbnail">
+            <img src= "<%= t.image %>" >
+            <div class = "caption">    
+                 <h4><%= t.title %> </h4>
+            </div>
+            <p>
+                <a href= "/textbooks/<%= t._id %>" class="btn btn-primary">More Info </a>
+            </p>
+        </div>
+    </div>
+
+<% }); %>     
+</div>
+
+</div>
+
+<% include partials/footer %>
