@@ -5,14 +5,12 @@ var Comment = require("./models/comment");
 var err = 
     function (msg, action){
         return function(err, obj){
-            console.log("ok in function");
-            console.log(obj);
             if(err){
                 console.log(err);
             }
             else {
                 action(obj);
-                console.log(msg);
+                //console.log(msg);
             }
         }
     }
@@ -33,8 +31,8 @@ var comment1 = {
 }
 
 function seedDB(){
-    Textbook.remove({}, err("Textbook removed!", function(o){
-        Comment.remove({}, err("Comment Removed!", function(o){
+    Textbook.deleteMany({}, err("Textbook removed!", function(o){
+        Comment.deleteMany({}, err("Comment Removed!", function(o){
             data.forEach(function(seed){
                 Textbook.create(seed, err("Textbook created!", function(textbook){
                     Comment.create(comment1, err("created new comment!", function(comment){

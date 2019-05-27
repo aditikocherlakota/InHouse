@@ -1,19 +1,48 @@
 <% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <div class ="col-md-3">
+            <p class ="lead">InHouse</p>
+            <div class="list-group">
+                <li class="list-group-item">ingfo1</li>
+                <li class="list-group-item">info2</li>
+                <li class="list-group-item">info3</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src = "<%= textbook.image %>"> 
+                <div class="caption">
+                    <h4 class="pull-right">$45.00</h4> 
+                    <h4><%= textbook.title %></h4>
+                    <p><%= textbook.description %> </p>
+                </div>       
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class ="btn btn-success" href="/textbooks/<%=textbook._id%>/comments/new">Add New Comment
+                    </a> 
+                </div>
+                <hr>
+                <% textbook.comments.forEach(function(comment){ %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong><%= comment.author %></strong>
+                        <span class ="pull-right">10 days ago</span>
+                        <p>
+                        <%= comment.text %>
+                        </p>
+                        <hr>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p><%= textbook.title %> </p>
 
-<img src = "<%= textbook.image %>">
-<p><%= textbook.description %> </p>
 
-<% textbook.comments.forEach(function(comment){ %>
-    <p>
-    <strong><%= comment.author %>-</strong>
-    <%= comment.text %>
-    </p>
 
-<% }) %>
-
-<a class ="btn btn-success" href="/textbooks/<%=textbook._id%>/comments/new">New Comment
-</a>
 
 <% include ../partials/footer %>
